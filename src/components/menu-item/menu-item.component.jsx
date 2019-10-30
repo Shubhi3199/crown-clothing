@@ -1,10 +1,11 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import './menu-item.styles.scss';
 
-const MenuItem = ({ title, imageUrl, size }) =>{   // destructuring title from the props for the time being. === props
+const MenuItem = ({ title, imageUrl, size, history, match, linkUrl }) =>{   // destructuring title from the props for the time being. === props
     return(
-        <div className= {`${size} menu-item`}>
+        <div className= {`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)}>
 
             <div className={`background-image`}
                  style={{
@@ -19,4 +20,6 @@ const MenuItem = ({ title, imageUrl, size }) =>{   // destructuring title from t
     );
 };
 
-export default MenuItem
+export default withRouter(MenuItem);
+// withRouter is a higher order component which takes a component as its argument (here MenuItem) and returns us a powered/juiced up Component which has access
+// to props like history, location, match without doing prop tunneling......
