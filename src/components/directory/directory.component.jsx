@@ -48,7 +48,7 @@ class Directory extends Component{
         return(
             <div className={`directory-menu`}>
                 {this.state.sections.map( ({title, imageUrl, id, size, linkUrl}) => (
-                    <MenuItem size={size} imageUrl={imageUrl} key={id} title={title} linkUrl={linkUrl} />  // size prop is only defined for 4 anf 5 image as mentioned in the state.
+                    <MenuItem size={size} imageUrl={imageUrl} key={id} title={title} linkUrl={linkUrl} />  // size prop is only defined for 4 and 5 image as mentioned in the state.
                     )
                 )}
             </div>
