@@ -8,7 +8,7 @@ import './header.styles.scss';
 const Header = () =>{
     return(
         <div className={`header`}>
-            <Link to={`/`} classNamee={`logo-container`}>
+            <Link to={`/`} className={`logo-container`}>
                 <Logo className={`logo`} />
             </Link>
             <div className={`options`}>
