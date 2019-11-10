@@ -17,14 +17,21 @@ firebase.initializeApp(config);
 
 export const createUserProfileDocument = async (userAuth, additionalData) =>{
     if(!userAuth) return ;
-    const user1 = firestore.doc(`users/${userAuth.uid}`);
-    const snapShot = await user1.get();
+    const users = firestore.collection('users');
+    const collectionSnapShot = await users.get();
+    // console.log(collectionSnapShot);
+    if(!collectionSnapShot.empty){
+         console.log(collectionSnapShot.docs);
+    }
 
-    if(!snapShot.exists){
+    const userRef = firestore.doc(`users/${userAuth.uid}`); // here user1 = query Reference object
+    const snapShot = await userRef.get();   //  using user1.get() we get the snapshot object from the reference object
+
+    if(!snapShot.exists){  // snapShot.exists tells us if a document exists at this query (user id) and returns a bool.
         const { displayName, email } = userAuth;
         const createdAt = new Date();
         try{
-            await user1.set({
+            await userRef.set({  // .set() is a document reference method  used for CRUD operations.
                 displayName,
                 email,
                 createdAt,
@@ -34,6 +41,18 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>{
             console.log(`user not added to database, ${e.message}`)
         }
     }
+    // else{
+    //     const { displayName, email } = userAuth;
+    //     try{
+    //         await user1.update({
+    //             displayName : 'Ram',
+    //             email : 'ram26@gmail.com'
+    //         })
+    //     }catch (e) {
+    //         console.log(`user not updated in database, ${e.message}`)
+    //     }
+    // }
+    return userRef;
 };
 
 export const auth = firebase.auth();
