@@ -3,6 +3,7 @@ import React from 'react';
 import './sign-in.styles.scss';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
+import {signInWithGoogle} from "../../firebase/firebase.utils";
 
 class SignIn extends React.Component{
     constructor(props){
@@ -43,12 +44,18 @@ class SignIn extends React.Component{
                         value={this.state.password}
                         label={`Password`}
                         required />
-
-                    <CustomButton type={`submit`}>SIGN IN</CustomButton>
+                    <div className={`buttons`}>
+                        <CustomButton type={`submit`}>SIGN IN</CustomButton>
+                        <CustomButton
+                            onClick={signInWithGoogle}
+                            isGoogleSignIn>
+                            SIGN IN WITH GOOGLE
+                        </CustomButton>
+                    </div>
                 </form>
             </div>
         );
     }
 }
-
+// here in line 46 the children of CustomButton is 'SIGN IN' text written on the button
 export default SignIn;
